@@ -8,7 +8,79 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <Grid Background="SteelBlue">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5.5*"/>
+            <RowDefinition Height="1.5*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <MediaElement Name="MyMediaElement" AutoPlay="True"/>
 
+        <RelativePanel Grid.Row="1" Grid.Column="1">
+            <Button Name ="PlayButton"  
+                RelativePanel.AlignHorizontalCenterWithPanel="True"
+                RelativePanel.AlignVerticalCenterWithPanel="True"
+                FontFamily="Segoe MDL2 Assets"
+                FontSize="70"
+                Background="SteelBlue"
+                Content="&#xE768;"
+                Height="100"
+                Width="100"
+                Click="PlayButton_Click"/>
+
+            <Button Name ="PauseButton"  
+                RelativePanel.AlignHorizontalCenterWithPanel="True"
+                RelativePanel.AlignVerticalCenterWithPanel="True"
+                FontFamily="Segoe MDL2 Assets"
+                FontSize="70"
+                Background="SteelBlue"
+                Content="&#xE769;"
+                Height="100"
+                Width="100"
+                Visibility="Collapsed"
+                Click="PauseButton_Click"/>
+
+            <Button Name ="NextButton"  
+                RelativePanel.AlignRightWithPanel="True"
+                RelativePanel.AlignVerticalCenterWithPanel="True"
+                FontFamily="Segoe MDL2 Assets"
+                FontSize="70"
+                Background="SteelBlue"
+                BorderThickness="2"
+                Content="&#xE893;"
+                Height="100"
+                Width="100"
+                Click="NextButton_Click"/>
+
+            <Button Name ="BackButton"  
+                RelativePanel.AlignLeftWithPanel="True"
+                RelativePanel.AlignVerticalCenterWithPanel="True"
+                FontFamily="Segoe MDL2 Assets"
+                FontSize="70"
+                Background="SteelBlue"
+                Content="&#xE892;"
+                Height="100"
+                Width="100"
+                Click="BackButton_Click"/>
+        </RelativePanel>
+
+        <Slider Name="VolumeSlider"
+                Grid.Row="1"
+                Grid.Column="2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Background="Black"
+                Foreground="Black"
+                StepFrequency=".01"
+                Minimum="0" 
+                Maximum="1" 
+                Value="0.5" 
+                Width="200"
+                ValueChanged="VolumeSlider_ValueChanged"
+                />        
     </Grid>
 </Page>
