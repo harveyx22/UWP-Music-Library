@@ -34,10 +34,42 @@ namespace UWP_Music_Library
             SongManager.GetAllSongs(Songs);
 
             SongsList = Songs.ToList();
+        }
 
-            var song = Songs[0];
+        private void MusicListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var song = (Song)e.ClickedItem;
             MyMediaElement.Source = new Uri(BaseUri, song.AudioFile);
         }
 
+        private void AppFunctionalitiesBottom_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void Home_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Search_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void YourLibrary_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CreatePlaylist_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void LikedSongs_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
