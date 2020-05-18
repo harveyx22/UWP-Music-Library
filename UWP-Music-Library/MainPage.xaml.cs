@@ -41,12 +41,45 @@ namespace UWP_Music_Library
             SongManager.GetAllSongs(Songs);
 
             SongsList = Songs.ToList();
-
-            var song = Songs[0];
-            MyMediaElement.Source = new Uri(BaseUri, song.AudioFile);              
         }
 
 
+        private void MusicListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var song = (Song)e.ClickedItem;
+            MyMediaElement.Source = new Uri(BaseUri, song.AudioFile);
+        }
+
+        private void AppFunctionalitiesBottom_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void Home_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Search_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void YourLibrary_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CreatePlaylist_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void LikedSongs_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+  
         #region Test saving to/loading from user's local files
         private async void onStartup()
         {
@@ -121,8 +154,6 @@ namespace UWP_Music_Library
             onStartup();
         }
         #endregion
-
-
 
     }
 }

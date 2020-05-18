@@ -29,6 +29,20 @@
                    RelativePanel.RightOf="HamburgerButton"
                    Width="45"
                    Height="45"/>
+
+            <Button Name="Login"
+					RelativePanel.AlignRightWithPanel="True"
+					FontFamily="Segoe MDL2 Assets"
+					Content="&#xE13D;"
+					Width="45"
+                    Height="45"/>
+
+            <Button Name="Register"
+					RelativePanel.LeftOf="Login"
+					FontFamily="Segoe MDL2 Assets"
+					Content="&#xE1E2;"
+					Width="45"
+                    Height="45"/>
         </RelativePanel>
 
         <!-- SplitView contains the stuff -->
@@ -54,7 +68,8 @@
                                 FontFamily="Segoe MDL2 Assets"
 					            Content="&#xE80F;"
 					            Width="45"
-                                Height="45"/>
+                                Height="45"
+                                Click="Home_Click"/>
                             <TextBlock Text="Home" FontSize="20" VerticalAlignment="Center"/>
                         </StackPanel>
 
@@ -63,7 +78,8 @@
                                 FontFamily="Segoe MDL2 Assets"
 					            Content="&#xE71E;"
 					            Width="45"
-                                Height="45"/>
+                                Height="45"
+                                Click="Search_Click"/>
                             <TextBlock Text="Search" FontSize="20" VerticalAlignment="Center"/>
                         </StackPanel>
 
@@ -72,7 +88,8 @@
                                 FontFamily="Segoe MDL2 Assets"
 					            Content="&#xE8F1;"
 					            Width="45"
-                                Height="45"/>
+                                Height="45"
+                                Click="YourLibrary_Click"/>
                             <TextBlock Text="Your Library" FontSize="20" VerticalAlignment="Center"/>
                         </StackPanel>
                     </ListView>
@@ -85,7 +102,8 @@
                                 FontFamily="Segoe MDL2 Assets"
 					            Content="&#xE710;"
 					            Width="45"
-                                Height="45"/>
+                                Height="45"
+                                Click="CreatePlaylist_Click"/>
                             <TextBlock Text="Create Playlist" FontSize="20" VerticalAlignment="Center"/>
                         </StackPanel>
 
@@ -94,7 +112,8 @@
                                 FontFamily="Segoe MDL2 Assets"
 					            Content="&#xE8E1;"
 					            Width="45"
-                                Height="45"/>
+                                Height="45"
+                                Click="LikedSongs_Click" />
                             <TextBlock Text="Liked Songs" FontSize="20" VerticalAlignment="Center"/>
                         </StackPanel>
 
@@ -107,7 +126,7 @@
                 </Grid>
             </SplitView.Pane>
 
-            <!-- Displays cover image while music plays -->
+            <!-- Displays cover image and music info -->
             <SplitView.Content>
                 <ListView Name="MusicListView"
                           IsItemClickEnabled="True"
@@ -116,7 +135,9 @@
                           CanReorderItems="False"
                           SelectionMode="Single"
                           FlowDirection="LeftToRight"
+                          ItemClick="MusicListView_ItemClick">
                           ItemsSource="{x:Bind Songs}">
+
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="model:Song">
                             <StackPanel Orientation="Horizontal">
@@ -142,9 +163,11 @@
             <MediaElement Name="MyMediaElement" AutoPlay="False" AreTransportControlsEnabled="True">
                 <MediaElement.TransportControls>
                     <MediaTransportControls IsFastForwardButtonVisible="True" IsFastForwardEnabled="True"
-                                        IsStopButtonVisible="True" IsStopEnabled="True"
-                                        IsFastRewindButtonVisible="True" IsFastRewindEnabled="True"                                        
-                                        IsPlaybackRateButtonVisible="True" IsPlaybackRateEnabled="True" />
+                                            IsStopButtonVisible="True" IsStopEnabled="True"
+                                            IsFastRewindButtonVisible="True" IsFastRewindEnabled="True"
+                                            IsFullWindowButtonVisible="True" IsFullWindowEnabled="True"
+                                            IsNextTrackButtonVisible="True" IsPreviousTrackButtonVisible="True"
+                                            IsRepeatButtonVisible="True" IsRepeatEnabled="True" />
                 </MediaElement.TransportControls>
             </MediaElement>
         </SplitView>
