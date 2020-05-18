@@ -135,7 +135,7 @@
                           CanReorderItems="False"
                           SelectionMode="Single"
                           FlowDirection="LeftToRight"
-                          ItemClick="MusicListView_ItemClick">
+                          ItemClick="MusicListView_ItemClick"
                           ItemsSource="{x:Bind Songs}">
 
                     <ListView.ItemTemplate>
@@ -160,7 +160,7 @@
 
         <!-- Media controls-->
         <SplitView Grid.Row="2" Name="MusicControls">
-            <MediaElement Name="MyMediaElement" AutoPlay="False" AreTransportControlsEnabled="True">
+            <MediaElement Name="MyMediaElement" AutoPlay="True" AreTransportControlsEnabled="True">
                 <MediaElement.TransportControls>
                     <MediaTransportControls IsFastForwardButtonVisible="True" IsFastForwardEnabled="True"
                                             IsStopButtonVisible="True" IsStopEnabled="True"

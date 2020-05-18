@@ -31,11 +31,6 @@ namespace UWP_Music_Library.Model
             this.AudioFile = $"/Assets/AudioFiles/{this.Name}.mp3";
             this.AlbumCoverFile = $"/Assets/AlbumCovers/{this.Album}.jpg";
             songNumber++;
-        }
-            
-
-            
-
-
+        }                 
     }
 }
