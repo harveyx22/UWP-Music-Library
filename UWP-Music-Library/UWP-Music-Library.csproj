@@ -133,9 +133,13 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\AlbumCovers\All of A Sudden I Miss Everyone.jpg" />
     <Content Include="Assets\AlbumCovers\How Strange, Innocence.jpg" />
+    <Content Include="Assets\AlbumCovers\The Earth Is Not a Cold Dead Place.jpg" />
     <Content Include="Assets\app_logo.jpg" />
     <Content Include="Assets\AudioFiles\Remember Me As A Time Of Day.mp3" />
+    <Content Include="Assets\AudioFiles\So Long, Lonesome.mp3" />
+    <Content Include="Assets\AudioFiles\Your Hand in Mine.mp3" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

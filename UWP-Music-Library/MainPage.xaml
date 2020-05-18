@@ -12,7 +12,7 @@
     <Grid  Background="SteelBlue">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
@@ -44,7 +44,7 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
@@ -97,6 +97,12 @@
                                 Height="45"/>
                             <TextBlock Text="Liked Songs" FontSize="20" VerticalAlignment="Center"/>
                         </StackPanel>
+
+                        <!-- The below buttons test adding and loading songs to/from a local path file-->
+                        <Button Name ="Test3" Content="Test Add Song" Height="30" Width="200" Click="Test3_Click"/>
+                        <Button Name ="Test4" Content="Test Load Song" Height="30" Width="200" Click="Test4_Click"/>
+
+
                     </ListView>
                 </Grid>
             </SplitView.Pane>
@@ -110,7 +116,7 @@
                           CanReorderItems="False"
                           SelectionMode="Single"
                           FlowDirection="LeftToRight"
-                          ItemsSource="{x:Bind SongsList}">
+                          ItemsSource="{x:Bind Songs}">
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="model:Song">
                             <StackPanel Orientation="Horizontal">
@@ -124,7 +130,7 @@
                     </ListView.ItemTemplate>
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <ItemsWrapGrid MaximumRowsOrColumns="10" Orientation="Horizontal" />
+                            <ItemsWrapGrid MaximumRowsOrColumns="10" Orientation="Vertical" />
                         </ItemsPanelTemplate>
                     </ListView.ItemsPanel>
                 </ListView>
@@ -133,7 +139,7 @@
 
         <!-- Media controls-->
         <SplitView Grid.Row="2" Name="MusicControls">
-            <MediaElement Name="MyMediaElement" AutoPlay="True" AreTransportControlsEnabled="True">
+            <MediaElement Name="MyMediaElement" AutoPlay="False" AreTransportControlsEnabled="True">
                 <MediaElement.TransportControls>
                     <MediaTransportControls IsFastForwardButtonVisible="True" IsFastForwardEnabled="True"
                                         IsStopButtonVisible="True" IsStopEnabled="True"
