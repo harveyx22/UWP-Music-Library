@@ -8,6 +8,14 @@ namespace UWP_Music_Library.Model
 {
     public class Song
     {
+        private static int songNumber = 0;
+
+        public static int GetSongNumber()
+        {
+            return songNumber;
+        }
+
+
         public string Name { get; set; }
         public string Artist { get; set; }
         public string Album { get; set; }
@@ -22,6 +30,7 @@ namespace UWP_Music_Library.Model
             this.Album = album;
             this.AudioFile = $"/Assets/AudioFiles/{this.Name}.mp3";
             this.AlbumCoverFile = $"/Assets/AlbumCovers/{this.Album}.jpg";
+            songNumber++;
         }
             
 
