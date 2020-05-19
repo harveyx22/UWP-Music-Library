@@ -23,7 +23,7 @@ namespace UWP_Music_Library.Model
             var songs = new List<Song>();
             songs.Add(new Song("Remember Me As A Time Of Day", "Explosions in the Sky", "How Strange, Innocence"));
             songs.Add(new Song("So Long, Lonesome", "Explosions in the Sky", "All of a Sudden I Miss Everyone"));
-            songs.Add(new Song("You Hand in Mine", "Explosions in the Sky", "The Earth Is Not a Cold Dead Place"));
+            songs.Add(new Song("Your Hand in Mine", "Explosions in the Sky", "The Earth Is Not a Cold Dead Place"));
             return songs;
         }
     }

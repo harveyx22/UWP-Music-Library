@@ -48,6 +48,7 @@ namespace UWP_Music_Library
         {
             var song = (Song)e.ClickedItem;
             MyMediaElement.Source = new Uri(BaseUri, song.AudioFile);
+            Test3.Content = song.Name;
         }
 
         private void AppFunctionalitiesBottom_ItemClick(object sender, ItemClickEventArgs e)
@@ -155,5 +156,20 @@ namespace UWP_Music_Library
         }
         #endregion
 
+        private void SortBySong_Click(object sender, RoutedEventArgs e)
+        {
+            MusicListView.ItemsSource = Songs.OrderBy(song => song.Name).ToList();
+        }
+
+        private void SortByAlbum_Click(object sender, RoutedEventArgs e)
+        {
+            MusicListView.ItemsSource = Songs.OrderBy(song => song.Album).ToList();
+        }
+
+        private void SortByArtist_Click(object sender, RoutedEventArgs e)
+        {
+            MusicListView.ItemsSource = Songs.OrderBy(song => song.Artist).ToList();
+
+        }
     }
 }
