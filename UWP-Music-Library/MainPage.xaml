@@ -11,9 +11,9 @@
 
     <Grid  Background="SteelBlue">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="12*" />
+            <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
 
         <!-- RelativePanel is used for menu controls -->
@@ -50,8 +50,8 @@
                    PaneBackground="Aquamarine"
                    IsPaneOpen="True"
 				   DisplayMode="Inline"
-				   CompactPaneLength="45"
-				   OpenPaneLength="256">
+				   CompactPaneLength="100"
+				   OpenPaneLength="240">
 
             <!-- Contains ListView of available app functionalities -->
             <SplitView.Pane>
@@ -121,6 +121,10 @@
                         <Button Name ="Test3" Content="Test Add Song" Height="30" Width="200" Click="Test3_Click"/>
                         <Button Name ="Test4" Content="Test Load Song" Height="30" Width="200" Click="Test4_Click"/>
 
+                        <Button Name ="SortBySong" Content="Sort By: Song Name" Height="30" Width="200" Click="SortBySong_Click"/>
+                        <Button Name ="SortByAlbum" Content="Sort By: Album Name" Height="30" Width="200" Click="SortByAlbum_Click"/>
+                        <Button Name ="SortByArtist" Content="Sort By: Artist Name" Height="30" Width="200" Click="SortByArtist_Click"/>
+
 
                     </ListView>
                 </Grid>
@@ -128,33 +132,65 @@
 
             <!-- Displays cover image and music info -->
             <SplitView.Content>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="200"/>
+                    </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Title" Margin="15,0,0,0" Grid.Column="2" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <TextBlock Text="Artist" Margin="15,0,0,0" Grid.Column="3" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                <TextBlock Text="Album" Margin="15,0,0,0" Grid.Column="4" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                                    
                 <ListView Name="MusicListView"
+                          Grid.Row="1"
+                          Grid.ColumnSpan="5"
                           IsItemClickEnabled="True"
+                          
                           CanDragItems="False"
                           AllowDrop="False"
-                          CanReorderItems="False"
-                          SelectionMode="Single"
-                          FlowDirection="LeftToRight"
+                          CanReorderItems="False"                          
+                          SelectionMode="Single"                          
                           ItemClick="MusicListView_ItemClick"
-                          ItemsSource="{x:Bind Songs}">
+                          ScrollViewer.VerticalScrollMode="Enabled"
+                          ItemsSource="{x:Bind Songs}" Margin="2,0,-2,0">
 
-                    <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="model:Song">
-                            <StackPanel Orientation="Horizontal">
-                                <Image Source="{x:Bind AlbumCoverFile}" Height="55" Width="55"/>
-                                <StackPanel Orientation="Vertical">
-                                    <TextBlock Text="{x:Bind Artist}" FontSize="14" VerticalAlignment="Center"/>
-                                    <TextBlock Text="{x:Bind Name}" FontSize="18" VerticalAlignment="Center"/>
+                       
+                            <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="model:Song">
+                                <StackPanel Orientation="Horizontal" MaxWidth="1000000">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition Width="70"/>
+                                            <ColumnDefinition Width="200"/>
+                                            <ColumnDefinition Width="200"/>
+                                            <ColumnDefinition Width="200"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="{x:Bind songIDNumber}" Margin="0,10,0,0" Grid.Column="0" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                        <Image Source="{x:Bind AlbumCoverFile}" Margin="0,10,0,0" Grid.Column="1" Height="50" Width="50" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                        <TextBlock Text="{x:Bind Name}" Margin="0,10,0,0" Grid.Column="2" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                        <TextBlock Text="{x:Bind Artist}" Margin="0,10,0,0" Grid.Column="3" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                                        <TextBlock Text="{x:Bind Album}" Margin="0,10,0,0" Grid.Column="4" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                                    </Grid>
                                 </StackPanel>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <ItemsWrapGrid MaximumRowsOrColumns="10" Orientation="Vertical" />
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
-                </ListView>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <!--<ListView.ItemsPanel>                            
+                            <ItemsPanelTemplate>
+                                <ItemsStackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>                    
+                        </ListView.ItemsPanel>-->
+                    </ListView>
+                    
+                </Grid>
             </SplitView.Content>
         </SplitView>
 
