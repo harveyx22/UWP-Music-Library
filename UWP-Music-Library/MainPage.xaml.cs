@@ -48,7 +48,28 @@ namespace UWP_Music_Library
             mediaPlaybackList = new MediaPlaybackList();
 
         }
-        
+
+        private void MusicListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var song = (Song)e.ClickedItem;
+
+            // int index = myList.FindIndex(a => a.Contains("Tennis"));
+
+            int clickedIndex = SongsList.FindIndex(s => s.Name == song.Name);
+            var filteredSongs = SongsList.Skip(clickedIndex);
+
+            foreach (Song music in filteredSongs)
+            {
+                var mediaPlaybackItem = new MediaPlaybackItem(MediaSource.CreateFromUri(new Uri(BaseUri, music.AudioFile)));
+                mediaPlaybackList.Items.Add(mediaPlaybackItem);
+            }
+
+            mediaPlaybackList.MaxPlayedItemsToKeepOpen = 3;
+
+            MyMediaPlayer.Source = mediaPlaybackList;
+            MyMediaPlayer.AutoPlay = true;
+        }
+
         private void PlayPlaylist_ButtonClick(object sender, RoutedEventArgs e)
         {
             
