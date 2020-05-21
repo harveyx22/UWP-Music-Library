@@ -33,52 +33,75 @@ namespace UWP_Music_Library
     {
         private ObservableCollection<Song> Songs;
         private List<Song> SongsList;
+        // private MediaPlayer mediaPlayer;
+        private MediaPlaybackList mediaPlaybackList;
 
         public MainPage()
         {
             this.InitializeComponent();
+
             Songs = new ObservableCollection<Song>();
             SongManager.GetAllSongs(Songs);
 
             SongsList = Songs.ToList();
+
+            mediaPlaybackList = new MediaPlaybackList();
+
+        }
+        
+        private void PlayPlaylist_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            
+            foreach (Song music in SongsList)
+            {
+                var mediaPlaybackItem = new MediaPlaybackItem(MediaSource.CreateFromUri(new Uri(BaseUri, music.AudioFile)));
+                mediaPlaybackList.Items.Add(mediaPlaybackItem);
+            }
+
+            mediaPlaybackList.MaxPlayedItemsToKeepOpen = 3;
+
+            MyMediaPlayer.Source = mediaPlaybackList;
+            MyMediaPlayer.AutoPlay = true;            
         }
 
-
-        private void MusicListView_ItemClick(object sender, ItemClickEventArgs e)
+        private void prevButton_Click(object sender, RoutedEventArgs e)
         {
-            var song = (Song)e.ClickedItem;
-            MyMediaElement.Source = new Uri(BaseUri, song.AudioFile);
-            Test3.Content = song.Name;
+            mediaPlaybackList.MovePrevious();
+        }
+
+        private void nextButton_Click(object sender, RoutedEventArgs e)
+        {
+            mediaPlaybackList.MoveNext();
         }
 
         private void AppFunctionalitiesBottom_ItemClick(object sender, ItemClickEventArgs e)
         {
-
+            throw new NotImplementedException();
         }
 
         private void Home_Click(object sender, RoutedEventArgs e)
         {
-
+            throw new NotImplementedException();
         }
 
         private void Search_Click(object sender, RoutedEventArgs e)
         {
-
+            throw new NotImplementedException();
         }
 
         private void YourLibrary_Click(object sender, RoutedEventArgs e)
         {
-
+            throw new NotImplementedException();
         }
 
         private void CreatePlaylist_Click(object sender, RoutedEventArgs e)
         {
-
+            throw new NotImplementedException();
         }
 
         private void LikedSongs_Click(object sender, RoutedEventArgs e)
         {
-
+            throw new NotImplementedException();
         }
   
         #region Test saving to/loading from user's local files

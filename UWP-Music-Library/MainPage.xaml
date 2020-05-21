@@ -25,10 +25,16 @@
 					Width="45"
                     Height="45"/>
  
-            <Image Source="/Assets/app_logo.jpg"
+            <Image Name="LogoImage"
+                   Source="/Assets/app_logo.jpg"
                    RelativePanel.RightOf="HamburgerButton"
                    Width="45"
                    Height="45"/>
+
+            <Button Name="PlayPlaylist"
+                    RelativePanel.RightOf="LogoImage"
+                    Content="Play Playlist"
+                    Click="PlayPlaylist_ButtonClick" />
 
             <Button Name="Login"
 					RelativePanel.AlignRightWithPanel="True"
@@ -125,7 +131,6 @@
                         <Button Name ="SortByAlbum" Content="Sort By: Album Name" Height="30" Width="200" Click="SortByAlbum_Click"/>
                         <Button Name ="SortByArtist" Content="Sort By: Artist Name" Height="30" Width="200" Click="SortByArtist_Click"/>
 
-
                     </ListView>
                 </Grid>
             </SplitView.Pane>
@@ -152,8 +157,7 @@
                 <ListView Name="MusicListView"
                           Grid.Row="1"
                           Grid.ColumnSpan="5"
-                          IsItemClickEnabled="True"
-                          
+                          IsItemClickEnabled="True"                          
                           CanDragItems="False"
                           AllowDrop="False"
                           CanReorderItems="False"                          
@@ -162,8 +166,8 @@
                           ScrollViewer.VerticalScrollMode="Enabled"
                           ItemsSource="{x:Bind Songs}" Margin="2,0,-2,0">
 
-                       
-                            <ListView.ItemTemplate>
+
+                        <ListView.ItemTemplate>
                             <DataTemplate x:DataType="model:Song">
                                 <StackPanel Orientation="Horizontal" MaxWidth="1000000">
                                     <Grid>
@@ -183,30 +187,26 @@
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
-                        <!--<ListView.ItemsPanel>                            
-                            <ItemsPanelTemplate>
-                                <ItemsStackPanel Orientation="Vertical"/>
-                            </ItemsPanelTemplate>                    
-                        </ListView.ItemsPanel>-->
                     </ListView>
                     
                 </Grid>
             </SplitView.Content>
         </SplitView>
 
-        <!-- Media controls-->
-        <SplitView Grid.Row="2" Name="MusicControls">
-            <MediaElement Name="MyMediaElement" AutoPlay="True" AreTransportControlsEnabled="True">
-                <MediaElement.TransportControls>
-                    <MediaTransportControls IsFastForwardButtonVisible="True" IsFastForwardEnabled="True"
-                                            IsStopButtonVisible="True" IsStopEnabled="True"
-                                            IsFastRewindButtonVisible="True" IsFastRewindEnabled="True"
-                                            IsFullWindowButtonVisible="True" IsFullWindowEnabled="True"
-                                            IsNextTrackButtonVisible="True" IsPreviousTrackButtonVisible="True"
-                                            IsRepeatButtonVisible="True" IsRepeatEnabled="True" />
-                </MediaElement.TransportControls>
-            </MediaElement>
-        </SplitView>
+        <!-- Media controls-->        
+        <MediaPlayerElement Grid.Row="2" Name="MyMediaPlayer"
+            AreTransportControlsEnabled="True">
+            <MediaPlayerElement.TransportControls>
+                <MediaTransportControls IsCompact="False"
+                                        IsFastForwardButtonVisible="True" IsFastForwardEnabled="True"
+                                        IsStopButtonVisible="True" IsStopEnabled="True"
+                                        IsFastRewindButtonVisible="True" IsFastRewindEnabled="True"
+                                        IsFullWindowButtonVisible="True" IsFullWindowEnabled="True"
+                                        IsNextTrackButtonVisible="True" IsPreviousTrackButtonVisible="True"
+                                        IsRepeatButtonVisible="True" IsRepeatEnabled="True" />
+            </MediaPlayerElement.TransportControls>
+        </MediaPlayerElement>
+       
 
     </Grid>
 </Page>
