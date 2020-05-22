@@ -17,7 +17,6 @@ namespace UWP_Music_Library.Model
             allSongs.ForEach(song => songs.Add(song));
         }
 
-
         private static List<Song> getSongs()
         {
             var songs = new List<Song>();
