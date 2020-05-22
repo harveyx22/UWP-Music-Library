@@ -15,9 +15,13 @@
             <RowDefinition Height="12*" />
             <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="240"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
         <!-- RelativePanel is used for menu controls -->
-        <RelativePanel>
+        <RelativePanel Grid.ColumnSpan="2">
             <Button Name="HamburgerButton"
 					RelativePanel.AlignLeftWithPanel="True"
 					FontFamily="Segoe MDL2 Assets"
@@ -52,11 +56,10 @@
         </RelativePanel>
 
         <!-- SplitView contains the stuff -->
-        <SplitView Grid.Row="1" Name="MusicSplitView"
+        <SplitView Grid.Row="1" Grid.ColumnSpan="2" Name="MusicSplitView"
                    PaneBackground="Aquamarine"
                    IsPaneOpen="True"
 				   DisplayMode="Inline"
-				   CompactPaneLength="100"
 				   OpenPaneLength="240">
 
             <!-- Contains ListView of available app functionalities -->
@@ -143,58 +146,65 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="20"/>
-                        <ColumnDefinition Width="70"/>
-                        <ColumnDefinition Width="200"/>
-                        <ColumnDefinition Width="200"/>
-                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="8*"/>
+                        <ColumnDefinition Width="30*"/>
+                        <ColumnDefinition Width="30*"/>
+                        <ColumnDefinition Width="50*"/>
                     </Grid.ColumnDefinitions>
 
-                <TextBlock Text="Title" Margin="15,0,0,0" Grid.Column="2" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                <TextBlock Text="Artist" Margin="15,0,0,0" Grid.Column="3" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Left" />
-                <TextBlock Text="Album" Margin="15,0,0,0" Grid.Column="4" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                    <TextBlock Text="Title" Margin="5,0,0,0" Grid.Column="1" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <TextBlock Text="Artist" Margin="5,0,0,0" Grid.Column="2" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                <TextBlock Text="Album" Grid.Column="3" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left" />
                                     
                 <ListView Name="MusicListView"
                           Grid.Row="1"
-                          Grid.ColumnSpan="5"
-                          IsItemClickEnabled="True"                          
+                          Grid.ColumnSpan="4"
+                          IsItemClickEnabled="True"   
+                          Margin="0,0,0,0" 
                           CanDragItems="False"
                           AllowDrop="False"
                           CanReorderItems="False"                          
-                          SelectionMode="Single"                          
+                          SelectionMode="None"                          
                           ItemClick="MusicListView_ItemClick"
                           ScrollViewer.VerticalScrollMode="Enabled"
-                          ItemsSource="{x:Bind Songs}" Margin="2,0,-2,0">
+                          ItemsSource="{x:Bind Songs}">
+
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
 
 
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="model:Song">
-                                <StackPanel Orientation="Horizontal" MaxWidth="1000000">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="20"/>
-                                            <ColumnDefinition Width="70"/>
-                                            <ColumnDefinition Width="200"/>
-                                            <ColumnDefinition Width="200"/>
-                                            <ColumnDefinition Width="200"/>
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock Text="{x:Bind songIDNumber}" Margin="0,10,0,0" Grid.Column="0" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                        <Image Source="{x:Bind AlbumCoverFile}" Margin="0,10,0,0" Grid.Column="1" Height="50" Width="50" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                        <TextBlock Text="{x:Bind Name}" Margin="0,10,0,0" Grid.Column="2" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                        <TextBlock Text="{x:Bind Artist}" Margin="0,10,0,0" Grid.Column="3" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Left" />
-                                        <TextBlock Text="{x:Bind Album}" Margin="0,10,0,0" Grid.Column="4" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Left" />
-                                    </Grid>
-                                </StackPanel>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="8*"/>
+                                        <ColumnDefinition Width="30*"/>
+                                        <ColumnDefinition Width="30*"/>
+                                        <ColumnDefinition Width="50*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="{x:Bind AlbumCoverFile}" Margin="0,5,0,5" Grid.Column="0" Height="50" Width="50" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                    <TextBlock Text="{x:Bind Name}" Margin="0,5,0,5" Grid.Column="1" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                    <TextBlock Text="{x:Bind Artist}" Margin="0,5,0,5" Grid.Column="2" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                                    <TextBlock Text="{x:Bind Album}" Margin="0,5,0,5" Grid.Column="3" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                                </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>
-                    </ListView>
-                    
+                    </ListView>                    
                 </Grid>
             </SplitView.Content>
         </SplitView>
 
+        <RelativePanel Grid.Row="2" VerticalAlignment="Center" Background="LightSteelBlue" Height="100">
+            <Image x:Name="CurrentAlbumCover"  Margin="0,0,0,0" Grid.Column="1" Height="75" Width="75" VerticalAlignment="Center" HorizontalAlignment="Left" />
+            <TextBlock Name="CurrentSong" Text="No Song Selected" Margin="0,0,0,0" Grid.Column="2" FontSize="16" RelativePanel.AlignVerticalCenterWith="CurrentAlbumCover" RelativePanel.RightOf="CurrentAlbumCover" />
+            <TextBlock Name="CurrentArtist" Margin="0,0,0,0" Grid.Column="3" FontSize="16" VerticalAlignment="Center" RelativePanel.RightOf="CurrentAlbumCover" RelativePanel.Below="CurrentSong"/>
+        </RelativePanel>
+
         <!-- Media controls-->        
-        <MediaPlayerElement Grid.Row="2" Name="MyMediaPlayer"
+        <MediaPlayerElement Grid.Row="2" Grid.Column="1" Name="MyMediaPlayer"
             AreTransportControlsEnabled="True">
             <MediaPlayerElement.TransportControls>
                 <MediaTransportControls IsCompact="False"

@@ -21,6 +21,7 @@ using Windows.ApplicationModel;
 using System.Threading.Tasks;
 using Windows.Media.Core;
 using Windows.Media.Playback;
+using Windows.UI.Xaml.Media.Imaging;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -47,18 +48,43 @@ namespace UWP_Music_Library
 
             mediaPlaybackList = new MediaPlaybackList();
 
+            // Initialize mediaplayer with playbacklist of all songs.
+            initializeMediaPlayer();
+        }
+
+        private void initializeMediaPlayer()
+        {
+            // Iterate through songlist, adding each to playbacklist.
+            foreach (Song music in SongsList)
+            {
+                var mediaPlaybackItem = new MediaPlaybackItem(MediaSource.CreateFromUri(new Uri(BaseUri, music.AudioFile)));
+                mediaPlaybackList.Items.Add(mediaPlaybackItem);
+            }
+            mediaPlaybackList.MaxPlayedItemsToKeepOpen = 3;
+
+            MyMediaPlayer.Source = mediaPlaybackList;
         }
 
         private void MusicListView_ItemClick(object sender, ItemClickEventArgs e)
         {
+            // Obtain song object chosen from list.
             var song = (Song)e.ClickedItem;
 
-            // int index = myList.FindIndex(a => a.Contains("Tennis"));
-
+            // Find index of song in song list.
             int clickedIndex = SongsList.FindIndex(s => s.Name == song.Name);
-            var filteredSongs = SongsList.Skip(clickedIndex);
 
-            foreach (Song music in filteredSongs)
+            // Get spliced list of chosen song to end of list, and add original beginning of list to the end of this new one. 
+            var filteredSongs = SongsList.Skip(clickedIndex);
+            var allSongs = filteredSongs.ToList();
+            foreach (Song s in SongsList.GetRange(0, clickedIndex))
+            {
+                allSongs.Add(s);
+            }        
+
+            mediaPlaybackList.Items.Clear();
+
+            // Add each song in new list to playbacklist
+            foreach (Song music in allSongs)
             {
                 var mediaPlaybackItem = new MediaPlaybackItem(MediaSource.CreateFromUri(new Uri(BaseUri, music.AudioFile)));
                 mediaPlaybackList.Items.Add(mediaPlaybackItem);
@@ -68,6 +94,11 @@ namespace UWP_Music_Library
 
             MyMediaPlayer.Source = mediaPlaybackList;
             MyMediaPlayer.AutoPlay = true;
+
+            // Update display of current song/artist/album
+            CurrentAlbumCover.Source = new BitmapImage(new Uri(BaseUri, song.AlbumCoverFile));
+            CurrentSong.Text = song.Name;
+            CurrentArtist.Text = song.Artist;
         }
 
         private void PlayPlaylist_ButtonClick(object sender, RoutedEventArgs e)
