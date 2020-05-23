@@ -22,6 +22,8 @@ using System.Threading.Tasks;
 using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.UI.Xaml.Media.Imaging;
+using Windows.ApplicationModel.Core;
+using Windows.UI.Core;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -36,6 +38,7 @@ namespace UWP_Music_Library
         private List<Song> SongsList;
         // private MediaPlayer mediaPlayer;
         private MediaPlaybackList mediaPlaybackList;
+        public delegate void DispatchedHandler();
 
         public MainPage()
         {
@@ -50,6 +53,25 @@ namespace UWP_Music_Library
 
             // Initialize mediaplayer with playbacklist of all songs.
             initializeMediaPlayer();
+            mediaPlaybackList.CurrentItemChanged += MediaPlaybackList_CurrentItemChanged;
+        }
+
+        private void MediaPlaybackList_CurrentItemChanged(MediaPlaybackList sender, CurrentMediaPlaybackItemChangedEventArgs args)
+        {
+            var task = CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                int index = (int)sender.CurrentItemIndex;
+                UpdateUI();
+            });
+        }
+
+        private void UpdateUI()
+        {
+            int newSongIndex = (int)mediaPlaybackList.CurrentItemIndex;
+            Song newSong = SongsList[newSongIndex];
+            CurrentAlbumCover.Source = new BitmapImage(new Uri(BaseUri, newSong.AlbumCoverFile));
+            CurrentSong.Text = newSong.Name;
+            CurrentArtist.Text = newSong.Artist;
         }
 
         private void initializeMediaPlayer()
@@ -62,7 +84,7 @@ namespace UWP_Music_Library
             }
             mediaPlaybackList.MaxPlayedItemsToKeepOpen = 3;
 
-            MyMediaPlayer.Source = mediaPlaybackList;
+            MyMediaPlayer.Source = mediaPlaybackList;           
         }
 
         private void MusicListView_ItemClick(object sender, ItemClickEventArgs e)
@@ -133,7 +155,15 @@ namespace UWP_Music_Library
 
         private void Home_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            // Iterate through songlist, adding each to playbacklist.
+            foreach (Song music in SongsList)
+            {
+                var mediaPlaybackItem = new MediaPlaybackItem(MediaSource.CreateFromUri(new Uri(BaseUri, music.AudioFile)));
+                mediaPlaybackList.Items.Add(mediaPlaybackItem);
+            }
+            mediaPlaybackList.MaxPlayedItemsToKeepOpen = 3;
+
+            MyMediaPlayer.Source = mediaPlaybackList;
         }
 
         private void Search_Click(object sender, RoutedEventArgs e)
@@ -244,7 +274,61 @@ namespace UWP_Music_Library
         private void SortByArtist_Click(object sender, RoutedEventArgs e)
         {
             MusicListView.ItemsSource = Songs.OrderBy(song => song.Artist).ToList();
+        }
 
+        private void addSongButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private async void findSongFile_Click(object sender, RoutedEventArgs e)
+        {
+            await findNewSongFile();
+        }
+
+        private async Task findNewSongFile()
+        {
+            var picker = new FileOpenPicker();
+            picker.ViewMode = PickerViewMode.Thumbnail;
+            picker.SuggestedStartLocation = PickerLocationId.MusicLibrary;
+            picker.FileTypeFilter.Add(".mp3");
+
+            StorageFile file = await picker.PickSingleFileAsync();
+            if (file != null)
+            {
+                // Application now has read/write access to the picked file
+                SongFileTextBox.Text = file.Name;
+            }
+        }
+
+        private async void findAlbumImageFile_Click(object sender, RoutedEventArgs e)
+        {
+            await findAlbumFile();            
+        }
+
+        private async Task findAlbumFile()
+        {
+            var picker = new FileOpenPicker();
+            picker.ViewMode = PickerViewMode.Thumbnail;
+            picker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+            picker.FileTypeFilter.Add(".jpg");
+
+            StorageFile file = await picker.PickSingleFileAsync();
+            if (file != null)
+            {
+                // Application now has read/write access to the picked file
+                AlbumFileTextBox.Text = file.Name;
+            }
+        }
+
+        private void saveNewSong_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void cancelSave_Click(object sender, RoutedEventArgs e)
+        {
+            addSongFlyout.Hide();
         }
     }
 }
