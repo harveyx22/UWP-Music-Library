@@ -11,7 +11,7 @@
 
     <Grid  Background="SteelBlue">
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
+            <RowDefinition Height="0*" />
             <RowDefinition Height="12*" />
             <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
@@ -21,7 +21,7 @@
         </Grid.ColumnDefinitions>
 
         <!-- RelativePanel is used for menu controls -->
-        <RelativePanel Grid.ColumnSpan="2">
+        <RelativePanel Grid.ColumnSpan="2" Visibility="Collapsed">
             <Button Name="HamburgerButton"
 					RelativePanel.AlignLeftWithPanel="True"
 					FontFamily="Segoe MDL2 Assets"
@@ -57,7 +57,7 @@
 
         <!-- SplitView contains the stuff -->
         <SplitView Grid.Row="1" Grid.ColumnSpan="2" Name="MusicSplitView"
-                   PaneBackground="Aquamarine"
+                   PaneBackground="LightSlateGray"
                    IsPaneOpen="True"
 				   DisplayMode="Inline"
 				   OpenPaneLength="240">
@@ -66,8 +66,7 @@
             <SplitView.Pane>
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="0"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
@@ -101,11 +100,7 @@
                                 Click="YourLibrary_Click"/>
                             <TextBlock Text="Your Library" FontSize="20" VerticalAlignment="Center"/>
                         </StackPanel>
-                    </ListView>
 
-                    <TextBlock Text="PLAYLISTS" Grid.Row="1" FontSize="24"  VerticalAlignment="Center"/>
-
-                    <ListView Name="AppFunctionalitiesBottom" Grid.Row="2">
                         <StackPanel Orientation="Horizontal">
                             <Button Name="CreatePlaylist"
                                 FontFamily="Segoe MDL2 Assets"
@@ -125,20 +120,33 @@
                                 Click="LikedSongs_Click" />
                             <TextBlock Text="Liked Songs" FontSize="20" VerticalAlignment="Center"/>
                         </StackPanel>
+                    </ListView>
 
-                        <!-- The below buttons test adding and loading songs to/from a local path file-->
-                        <Button Name ="Test3" Content="Test Add Song" Height="30" Width="200" Click="Test3_Click"/>
-                        <Button Name ="Test4" Content="Test Load Song" Height="30" Width="200" Click="Test4_Click"/>
+                    <ListView Name="AppFunctionalitiesBottom" Grid.Row="1">                      
+                        
+                        <Button Click="Home_Click" Height="Auto" Width="Auto" Margin="0,10,0,0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE80F;" FontSize="18" VerticalAlignment="Center"/>
+                                <TextBlock Text="  Home" FontSize="18" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
 
-                        <Button Name ="SortBySong" Content="Sort By: Song Name" Height="30" Width="200" Click="SortBySong_Click"/>
-                        <Button Name ="SortByAlbum" Content="Sort By: Album Name" Height="30" Width="200" Click="SortByAlbum_Click"/>
-                        <Button Name ="SortByArtist" Content="Sort By: Artist Name" Height="30" Width="200" Click="SortByArtist_Click"/>
-
+                        <DropDownButton Height="Auto">
+                            <TextBlock Text="Sort Songs By" FontSize="18"/>
+                            <DropDownButton.Flyout>
+                                <MenuFlyout Placement="RightEdgeAlignedTop">
+                                    <MenuFlyoutItem Text="Title" Icon="Sort" Click="SortBySong_Click"/>
+                                    <MenuFlyoutItem Text="Artist" Icon="Sort" Click="SortByArtist_Click"/>
+                                    <MenuFlyoutItem Text="Album" Icon="Sort" Click="SortByAlbum_Click"/>
+                                </MenuFlyout>                                
+                            </DropDownButton.Flyout>
+                        </DropDownButton> 
+                        
                     </ListView>
                 </Grid>
             </SplitView.Pane>
 
-            <!-- Displays cover image and music info -->
+            <!-- Diplays cover image and music info -->
             <SplitView.Content>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -152,11 +160,12 @@
                         <ColumnDefinition Width="50*"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Text="Title" Margin="5,0,0,0" Grid.Column="1" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                <TextBlock Text="Artist" Margin="5,0,0,0" Grid.Column="2" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left" />
-                <TextBlock Text="Album" Grid.Column="3" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left" />
-                                    
-                <ListView Name="MusicListView"
+
+                    <Button Name ="Song_Title" Grid.Column="1" Background="SteelBlue" Content="Title" FontSize="20" HorizontalContentAlignment="Left" Height="40" Width="260" Click="SortBySong_Click"/>
+                    <Button Name ="Artist_Title" Grid.Column="2" Background="SteelBlue" Content="Artist" FontSize="20" HorizontalContentAlignment="Left" Height="40" Width="260" Click="SortByArtist_Click"/>
+                    <Button Name ="Album_Title" Grid.Column="3" Background="SteelBlue" Content="Album" FontSize="20" HorizontalContentAlignment="Left" Height="40" Width="260" Click="SortByAlbum_Click"/>
+
+                    <ListView Name="MusicListView"
                           Grid.Row="1"
                           Grid.ColumnSpan="4"
                           IsItemClickEnabled="True"   
@@ -197,26 +206,24 @@
             </SplitView.Content>
         </SplitView>
 
-        <RelativePanel Grid.Row="2" VerticalAlignment="Center" Background="LightSteelBlue" Height="100">
-            <Image x:Name="CurrentAlbumCover"  Margin="0,0,0,0" Grid.Column="1" Height="75" Width="75" VerticalAlignment="Center" HorizontalAlignment="Left" />
-            <TextBlock Name="CurrentSong" Text="No Song Selected" Margin="0,0,0,0" Grid.Column="2" FontSize="16" RelativePanel.AlignVerticalCenterWith="CurrentAlbumCover" RelativePanel.RightOf="CurrentAlbumCover" />
-            <TextBlock Name="CurrentArtist" Margin="0,0,0,0" Grid.Column="3" FontSize="16" VerticalAlignment="Center" RelativePanel.RightOf="CurrentAlbumCover" RelativePanel.Below="CurrentSong"/>
+        <RelativePanel Grid.Row="2" VerticalAlignment="Top" Background="SlateGray" Height="95">
+            <Image x:Name="CurrentAlbumCover"  Margin="10,15,0,0" Grid.Column="1" Height="60" Width="60" VerticalAlignment="Center" HorizontalAlignment="Left" />
+            <TextBlock Name="CurrentSong" Margin="3,-15,0,0" Text="No Song Selected" Grid.Column="2" FontSize="12" RelativePanel.AlignVerticalCenterWith="CurrentAlbumCover" RelativePanel.RightOf="CurrentAlbumCover" />
+            <TextBlock Name="CurrentArtist" Margin="3,0,0,0"  Grid.Column="3" FontSize="12" VerticalAlignment="Center" RelativePanel.RightOf="CurrentAlbumCover" RelativePanel.Below="CurrentSong"/>
         </RelativePanel>
 
-        <!-- Media controls-->        
+        <!-- Media controls-->
         <MediaPlayerElement Grid.Row="2" Grid.Column="1" Name="MyMediaPlayer"
             AreTransportControlsEnabled="True">
             <MediaPlayerElement.TransportControls>
                 <MediaTransportControls IsCompact="False"
                                         IsFastForwardButtonVisible="True" IsFastForwardEnabled="True"
                                         IsStopButtonVisible="True" IsStopEnabled="True"
-                                        IsFastRewindButtonVisible="True" IsFastRewindEnabled="True"
-                                        IsFullWindowButtonVisible="True" IsFullWindowEnabled="True"
+                                        IsFastRewindButtonVisible="True" IsFastRewindEnabled="True"                                        
                                         IsNextTrackButtonVisible="True" IsPreviousTrackButtonVisible="True"
-                                        IsRepeatButtonVisible="True" IsRepeatEnabled="True" />
+                                        IsRepeatButtonVisible="True" IsRepeatEnabled="True"
+                                        IsFullWindowButtonVisible="False"/>
             </MediaPlayerElement.TransportControls>
-        </MediaPlayerElement>
-       
-
+        </MediaPlayerElement>    
     </Grid>
 </Page>

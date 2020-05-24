@@ -134,11 +134,28 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\AlbumCovers\All of A Sudden I Miss Everyone.jpg" />
+    <Content Include="Assets\AlbumCovers\Blue Album.jpg" />
+    <Content Include="Assets\AlbumCovers\Californication.jpg" />
     <Content Include="Assets\AlbumCovers\How Strange, Innocence.jpg" />
+    <Content Include="Assets\AlbumCovers\Remember Two Things.jpg" />
+    <Content Include="Assets\AlbumCovers\Ten.jpg" />
+    <Content Include="Assets\AlbumCovers\The Colour and the Shape.jpg" />
     <Content Include="Assets\AlbumCovers\The Earth Is Not a Cold Dead Place.jpg" />
+    <Content Include="Assets\AlbumCovers\Third Eye Blind.jpg" />
+    <Content Include="Assets\AlbumCovers\Those Who Tell the Truth.jpg" />
+    <Content Include="Assets\AlbumCovers\Yourself or Someone Like You.jpg" />
     <Content Include="Assets\app_logo.jpg" />
+    <Content Include="Assets\AudioFiles\Alive.mp3" />
+    <Content Include="Assets\AudioFiles\Ants Marching.mp3" />
+    <Content Include="Assets\AudioFiles\Californication.mp3" />
+    <Content Include="Assets\AudioFiles\Everlong.mp3" />
+    <Content Include="Assets\AudioFiles\First Breath After Coma.mp3" />
+    <Content Include="Assets\AudioFiles\Push.mp3" />
     <Content Include="Assets\AudioFiles\Remember Me As A Time Of Day.mp3" />
+    <Content Include="Assets\AudioFiles\Say It Ain%27t So.mp3" />
+    <Content Include="Assets\AudioFiles\Semi-Charmed Life.mp3" />
     <Content Include="Assets\AudioFiles\So Long, Lonesome.mp3" />
+    <Content Include="Assets\AudioFiles\Yasmin the Light.mp3" />
     <Content Include="Assets\AudioFiles\Your Hand in Mine.mp3" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
