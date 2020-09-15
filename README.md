@@ -1,5 +1,11 @@
-﻿## UWP Music Library App
+Upon initial opening of this application, the application displays the user's music library:
 
-#### Project Assignment: Design a music library UWP where users of the app can each build their collection of music. Allow the user to store a cover image, and other details on the music. Extra bonus if you can play the music from the app.
+![Image](https://github.com/harveyx22/UWP-Music-Library/blob/master/UWP-Music-Library/Screenshots/Music%20Library%20Start.png?raw=true "Budget Entry Page")
 
-Demo Video:  https://www.youtube.com/watch?v=YAZo9OsChT0&feature=youtu.be
+When the user selects a song from the music library, the song will begin playing and the song info will be shown in the current song display. Using the media player controls, the user can calso pause/play, fast forward, mute, and select a specific time in the song:
+
+![Image](https://github.com/harveyx22/UWP-Music-Library/blob/master/UWP-Music-Library/Screenshots/Music%20Library%20Song%20Selected.png?raw=true "Main Page 1")
+
+If the user would like to sort the music library, the "Sort Songs By" menu flyout can be used to sort by song titel, artist or album:
+
+![Image](https://github.com/harveyx22/UWP-Music-Library/blob/master/UWP-Music-Library/Screenshots/Music%20Library%20Filter%20by%20Artist.png?raw=true "Expense Entry Page 1")
